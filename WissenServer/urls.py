@@ -54,10 +54,10 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^api/', include(eventurls)),
-    url(r'^api/', include(appurls)),
-    url(r'^api/', include(examurls)),
-    url(r'^api/', include(i18nurls)),
+    #url(r'^api/', include(eventurls)),
+    #url(r'^api/', include(appurls)),
+    #url(r'^api/', include(examurls)),
+    #url(r'^api/', include(i18nurls)),
 
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api/', include(router.urls)),
