@@ -7,7 +7,7 @@ from django.db import connection
 def initial_languages(apps, schema_editor):
 	cursor = connection.cursor()
 
-	params = [(
+	params = [
 		('abk', 'ab', 'Abkhaz', 'Аҧсуа'),
 		('ace', NULL, 'Achinese', NULL),
 		('ach', NULL, 'Acoli', NULL),
@@ -471,7 +471,7 @@ def initial_languages(apps, schema_editor):
 		('zen', NULL, 'Zenaga', NULL),
 		('zha', 'za', 'Zhuang, Chuang', 'Sawcuengh'),
 		('zul', 'zu', 'Zulu', 'isiZulu'),
-		('zun', NULL, 'Zuni', 'Shiwi'))
+		('zun', NULL, 'Zuni', 'Shiwi') ]
 
 	cursor.executemany("insert into i18n_language (codigo, codigo2, descripcion, original) values (?, ?, ?, ?)", params)
 
