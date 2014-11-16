@@ -5,6 +5,8 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 
 urlpatterns = patterns('',
+	url(r'^_eventos/$',  EventList.as_view(), name='event-list'),
+	url(r'^_eventos/(?P<pk>\d+)/$', EventDetail.as_view(), name='event-detail'),
 	url(r'^user/$',  UserList.as_view(), name='user-list'),
 	url(r'^user/(?P<pk>\d+)/$', UserDetail.as_view(), name='user-detail'),
 	url(r'^inscript/$',  InscripcionList.as_view(), name='inscripts-list'),

@@ -3,15 +3,23 @@ from event.models import *
 
 from app.serializers import CategorySerializer
 from django.contrib.auth.models import Group, User, Permission
+from i18n.models import Language, LanguagesRegistered
 from rest_framework import serializers
 
 
+
+
+class _LanguagesRegisteredSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = LanguagesRegistered
+
+
 class EventSerializer(serializers.ModelSerializer):
+	languages = _LanguagesRegisteredSerializer(required=False)
 	class Meta:
 		model = Event
-	
-		
-	
+
+
 
 class InscripcionSerializer(serializers.ModelSerializer):
 	#categoria = CategorySerializer(required=False)

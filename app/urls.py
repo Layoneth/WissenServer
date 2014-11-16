@@ -5,8 +5,10 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 
 urlpatterns = patterns('',
-	url(r'^niveles/$',  NivelList.as_view(), name='levels-list'),
-	url(r'^niveles/(?P<pk>\d+)/$', NivelDetail.as_view(), name='levels-detail'),
+	url(r'^_niveles/$',  NivelList.as_view(), name='levels-list'),
+	url(r'^_niveles/(?P<pk>\d+)/$', NivelDetail.as_view(), name='levels-detail'),
+	url(r'^_disciplinas/$',  NivelList.as_view(), name='disc-list'),
+	url(r'^_disciplinas/(?P<pk>\d+)/$', NivelDetail.as_view(), name='disc-detail'),
 
 )
 

@@ -13,6 +13,7 @@ from i18n.views import *
 
 
 from django.contrib import admin
+admin.site.site_header = 'Administración de WissenSystem'
 admin.autodiscover()
 
 
@@ -21,7 +22,7 @@ router = DefaultRouter()
 router.register(r'entidades', EntityViewSet)
 router.register(r'disciplinas', DisciplineViewSet)
 router.register(r'disciplinatrans', DisciplineTransViewSet)
-#router.register(r'niveles', LevelViewSet)
+router.register(r'niveles', LevelViewSet)
 router.register(r'nivelestrans', LevelTransViewSet)
 router.register(r'categorias', CategoryViewSet)
 router.register(r'categoriastrans', CategoryTransViewSet)
@@ -35,14 +36,14 @@ router.register(r'test', TestViewSet)
 router.register(r'respuestas', AnswerViewSet)
 router.register(r'bug', BugViewSet)
 # exam
-router.register(r'exam', ExamViewSet)
+router.register(r'examenes', ExamViewSet)
 router.register(r'pregunta_exam', Exam_QuestionViewSet)
 router.register(r'preguntas', QuestionViewSet)
 router.register(r'preguntastrans', QuestionTransViewSet)
 router.register(r'preguntas_categoria', Question_CategoryViewSet)
 # i18n
 router.register(r'idiomas', LanguageViewSet)
-router.register(r'idiomastrans', LanguagesRegisteredViewSet)
+router.register(r'idiomasregistrados', LanguagesRegisteredViewSet)
 
 
 
@@ -54,15 +55,17 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
 
-    #url(r'^api/', include(eventurls)),
-    #url(r'^api/', include(appurls)),
-    #url(r'^api/', include(examurls)),
-    #url(r'^api/', include(i18nurls)),
+    url(r'^api/', include(eventurls)),
+    url(r'^api/', include(appurls)),
+    url(r'^api/', include(examurls)),
+    url(r'^api/', include(i18nurls)),
 
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api/', include(router.urls)),
     url(r'^api/login', autenticar),
     url(r'^api/logout/?', vlogout),
     url(r'^api-token-auth/', 'rest_framework.authtoken.views.obtain_auth_token'), # Para saber qué token se le ha asignado a un usuario.
+
+    url(r'^hi', 'app.views.principal', name='principal')
 
 )

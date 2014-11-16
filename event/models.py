@@ -11,6 +11,7 @@ class Event(models.Model):
 	nombre = models.CharField(max_length=200)
 	descripcion = models.CharField(max_length=400, null=True, blank=True)
 	exam_actual = models.IntegerField(default=0) # Se relaciona con 'exam.Exam' pero no 
+	with_pay = models.BooleanField(default=True) # ¿En este evento se harán pagos por las inscripciones? True=Sí se harán pagos. False=No se harán pagos.
 	precio1 = models.IntegerField(default=2000) # Precios para las iscripciones a categorías.
 	precio2 = models.IntegerField(default=3000)
 	precio3 = models.IntegerField(default=4000)
@@ -21,8 +22,11 @@ class Event(models.Model):
 	allow_cross_users = models.BooleanField(default=True) # Este evento permite usuarios de otros eventos?
 	enable_public_chat = models.BooleanField(default=True) # Indica si el chat público estará habilitado
 	enable_private_chat = models.BooleanField(default=True) # Indica que los usuario se pueden enviar mensajes privados.
-	def __unicode__(self):
-		return self.nombre
+	def __str__(self):
+		return "%s - %s" % (self.nombre, self.descripcion)
+	class Meta:
+		verbose_name = "evento"
+		verbose_name_plural = "eventos"
 
 
 class Participant_Level(models.Model):
@@ -31,6 +35,9 @@ class Participant_Level(models.Model):
 	"""
 	nivel = models.ForeignKey('app.Level')
 	user = models.ForeignKey(User, related_name='participant_levels')
+	class Meta:
+		verbose_name = "asignación de nivel a participante"
+		verbose_name_plural = "asignaciones de niveles a participantes"
 
 
 class Inscription(models.Model):
@@ -43,8 +50,11 @@ class Inscription(models.Model):
 	signed_by = models.ForeignKey(User, related_name='inscription_signed_by') # Usuario que inscribió al participante
 	created_at  = models.DateTimeField(auto_now_add=True)
 	udpated_at = models.DateTimeField(auto_now=True) 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s - %s' % (self.categoria.nombre, self.user.first_name)
+	class Meta:
+		verbose_name = "inscripción"
+		verbose_name_plural = "inscripciones"
 
 
 
@@ -59,8 +69,11 @@ class User_Event(models.Model):
 	signed_by = models.ForeignKey(User, related_name='event_signed_by') # Usuario que inscribió al participante
 	created_at  = models.DateTimeField(auto_now_add=True)
 	udpated_at = models.DateTimeField(auto_now=True) 
-	def __unicode__(self):
+	def __str__(self):
 		return '%s - %s' % (self.event.nombre, self.user.first_name)
+	class Meta:
+		verbose_name = "Asignación de evento a usuario"
+		verbose_name_plural = "asignaciones de eventos a usuarios"
 
 
 class Test(models.Model):
@@ -75,8 +88,11 @@ class Test(models.Model):
 	deleted = models.BooleanField(default=False) # Con el Test solo haremos borrados suaves (soft delete) por seguridad
 	created_at  = models.DateTimeField(auto_now_add=True)
 	udpated_at = models.DateTimeField(auto_now=True)
-	def __unicode__():
-		return 
+	def __str__(self):
+		return '%s %s' % (self.exam, self.inscripcion)
+	class Meta:
+		verbose_name = "test"
+		verbose_name_plural = "test(exámenes respondidos)"
 
 
 class Answer(models.Model):
@@ -89,6 +105,9 @@ class Answer(models.Model):
 	tiempo = models.IntegerField(max_length=3) # (Seg)Tiempo que duró respondiendo la pregunta
 	created_at  = models.DateTimeField(auto_now_add=True)
 	udpated_at = models.DateTimeField(auto_now=True)
+	class Meta:
+		verbose_name = "respuesta"
+		verbose_name_plural = "respuestas"
 	
 
 
@@ -103,6 +122,9 @@ class Bug(models.Model):
 	fixed_by = models.ForeignKey('auth.User') # Usuario que arregló el bug
 	created_at  = models.DateTimeField(auto_now_add=True) # Momento en que se reportó
 	udpated_at = models.DateTimeField(auto_now=True) # Se puede decir que esta modificación dice cuando fue arreglado el bug, pero no es de fiar.
+	class Meta:
+		verbose_name = "bug"
+		verbose_name_plural = "bugs del sistema"
 
 
 
@@ -111,7 +133,7 @@ class Bug(models.Model):
 # Extenderé las columnas de User, ya que la tabla User de Django no tiene todas los campos que necesitamos.
 User.add_to_class('cell', models.CharField(max_length=200, null=True, blank=True)) # Número de celular
 User.add_to_class('direccion', models.CharField(max_length=400, null=True, blank=True))
-User.add_to_class('img', models.TextField(max_length=200, null=True, blank=True)) # Foto del usuario.
+User.add_to_class('img', models.ImageField(max_length=200, null=True, blank=True)) # Foto del usuario.
 User.add_to_class('evento', models.IntegerField(max_length=5, default=0)) # Evento en el que participará, si es cero, estará en cualquier evento.
 User.add_to_class('connected', models.BooleanField(default=False)) # Es True mientras está logueado, y False cuando se sale del sistema.
 User.add_to_class('signed_by', models.IntegerField(null=True, blank=True)) # Usuario que inscribió esta persona. Debería ser Foraneo, pero me complica al registrar el primero.

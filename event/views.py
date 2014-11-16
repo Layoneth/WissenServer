@@ -10,10 +10,23 @@ from .serializers import *
 
 
 
+
 class UserViewSet(ModelViewSet):
+	queryset = User.objects.all()
+	serializer_class = UserSerializer
 	model = User
-	write_only_fields = ('password',)  # Note: Password field is write-only
+	#write_only_fields = ('password',)  # Note: Password field is write-only
 	lookup_field = 'id'
+
+
+
+class EventList(generics.ListCreateAPIView):
+	model = Event
+	serializer_class = EventSerializer
+
+class EventDetail(generics.RetrieveUpdateDestroyAPIView):
+	model = Event
+	serializer_class = EventSerializer
 
 
 class UserList(generics.ListCreateAPIView):

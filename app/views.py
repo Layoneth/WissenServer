@@ -16,6 +16,13 @@ from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import obtain_auth_token
 
 
+def principal(request):
+	#t = loader.get_template('pag.html')
+	return render(request, 'index.html')
+	#return HttpResponse(serialize("json", Nota.objects.all()))
+	#return Response(serialize("json", Nota.objects.all()))
+
+
 
 # Creamos los ModelViewSets para el API de djangorestframework
 class EntityViewSet(ModelViewSet):
@@ -38,6 +45,8 @@ class LevelTransViewSet(ModelViewSet):
 	model = LevelTranslate
 
 
+
+
 class NivelList(generics.ListCreateAPIView):
 	model = Level
 	serializer_class = LevelSerializer
@@ -45,6 +54,18 @@ class NivelList(generics.ListCreateAPIView):
 class NivelDetail(generics.RetrieveUpdateDestroyAPIView):
 	model = Level
 	serializer_class = LevelSerializer
+
+
+
+class DisciplineList(generics.ListCreateAPIView):
+	model = Discipline
+	serializer_class = DisciplineSerializer
+
+class DisciplineDetail(generics.RetrieveUpdateDestroyAPIView):
+	model = Discipline
+	serializer_class = DisciplineSerializer
+
+
 
 
 class CategoryViewSet(ModelViewSet):

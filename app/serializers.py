@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from app.models import *
 from django.contrib.auth.models import Group
+from event.models import Event
 
 
 class EntitySerializer(serializers.ModelSerializer):
@@ -21,24 +22,31 @@ class MessageSerializer(serializers.ModelSerializer):
 	
 
 
-class LevelTransSerializer(serializers.ModelSerializer):
+class _LevelTransSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = LevelTranslate
 
+class _EventSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Event
+
 class LevelSerializer(serializers.ModelSerializer):
-	traducciones = LevelTransSerializer(required=False)
+	traducciones = _LevelTransSerializer(required=False)
+	event = _EventSerializer(required=False)
 	class Meta:
 		model = Level
 
 
 
-class DisciplineSerializer(serializers.ModelSerializer):
-	class Meta:
-		model = Discipline
-	
 class DisciplineTransSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = DisciplineTranslate
+
+class DisciplineSerializer(serializers.ModelSerializer):
+	traducciones = DisciplineTransSerializer(required=False)
+	event = _EventSerializer(required=False)
+	class Meta:
+		model = Discipline
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -47,7 +55,8 @@ class CategorySerializer(serializers.ModelSerializer):
 		model = Category
 		#depth = 1
 	
-		
+
+
 
 class GroupSerializer(serializers.ModelSerializer):
 	class Meta:

@@ -1,0 +1,1 @@
+<h1>{{titulo || 'Panel de control'}}</h1><!--Este grupo solo lo mostrará cuando esté en el estado usuarios.--><div ng-show="$state.includes('panel.usuarios')" class="btn-group"><a title="Administrar grupos" ui-sref="panel.usuarios.grupos({id: '', type: 'edit'})" class="btn"><i class="fa fa-th-large">Grupos</i></a></div>

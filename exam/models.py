@@ -20,6 +20,9 @@ class Exam(models.Model):
 	created_by = models.ForeignKey(User)
 	created_at  = models.DateTimeField(auto_now_add=True)
 	udpated_at = models.DateTimeField(auto_now=True)
+	class Meta:
+		verbose_name = "examen"
+		verbose_name_plural = "examenes"
 
 
 class Exam_Question(models.Model):
@@ -29,6 +32,9 @@ class Exam_Question(models.Model):
 	exam = models.ForeignKey('Exam')
 	preg = models.ForeignKey('Question')
 	added_by = models.ForeignKey(User) # Usuario que registró la pregunta al examen
+	class Meta:
+		verbose_name = "asignación de pregunta a exámenes"
+		verbose_name_plural = "asignaciones de preguntas a exámenes"
 	
 
 class Question(models.Model):
@@ -43,6 +49,9 @@ class Question(models.Model):
 	created_by = models.ForeignKey(User)
 	created_at  = models.DateTimeField(auto_now_add=True)
 	udpated_at = models.DateTimeField(auto_now=True)
+	class Meta:
+		verbose_name = "pregunta"
+		verbose_name_plural = "preguntas"
 
 
 
@@ -66,6 +75,9 @@ class QuestionTranslate(models.Model):
 	created_by = models.ForeignKey(User)
 	created_at  = models.DateTimeField(auto_now_add=True)
 	udpated_at = models.DateTimeField(auto_now=True)
+	class Meta:
+		verbose_name = "traducción de una pregunta"
+		verbose_name_plural = "traducciones de las preguntas"
 
 
 class Question_Category(models.Model):
@@ -77,6 +89,9 @@ class Question_Category(models.Model):
 	assigned_by = models.ForeignKey(User)
 	created_at  = models.DateTimeField(auto_now_add=True)
 	udpated_at = models.DateTimeField(auto_now=True)
+	class Meta:
+		verbose_name = "asignación de pregunta a categoría"
+		verbose_name_plural = "asignaciones de preguntas a categorías"
 
 
 
