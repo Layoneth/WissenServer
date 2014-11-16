@@ -473,9 +473,12 @@ def initial_languages(apps, schema_editor):
 		('zul', 'zu', 'Zulu', 'isiZulu'),
 		('zun', NULL, 'Zuni', 'Shiwi');""")
 
-	row = cursor.fetchone()
+	#row = cursor.fetchone()
 
-	return row
+	#return row
+	connection.commit()
+	connection.close()
+	return
 
 
 class Migration(migrations.Migration):
