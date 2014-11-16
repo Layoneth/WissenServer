@@ -7,7 +7,7 @@ from django.db import connection
 def initial_languages(apps, schema_editor):
 	cursor = connection.cursor()
 
-	cursor.execute("""insert into i18n_language (codigo, codigo2, descripcion, original) values 
+	params = [(
 		('abk', 'ab', 'Abkhaz', 'Аҧсуа'),
 		('ace', NULL, 'Achinese', NULL),
 		('ach', NULL, 'Acoli', NULL),
@@ -173,7 +173,7 @@ def initial_languages(apps, schema_editor):
 		('hai', NULL, 'Haida', NULL),
 		('hat', 'ht', 'Haitian Creole, Haitian', 'Kreyòl ayisyen'),
 		('hau', 'ha', 'Hausa', 'هَوُسَ'),
-		('haw', NULL, 'Hawaiian', '''Ōlelo Hawai''i'),
+		('haw', NULL, 'Hawaiian', 'Ōlelo Hawaii'),
 		('heb', 'he', 'Hebrew', 'עברית'),
 		('her', 'hz', 'Herero', NULL),
 		('hil', NULL, 'Hiligaynon', NULL),
@@ -471,13 +471,10 @@ def initial_languages(apps, schema_editor):
 		('zen', NULL, 'Zenaga', NULL),
 		('zha', 'za', 'Zhuang, Chuang', 'Sawcuengh'),
 		('zul', 'zu', 'Zulu', 'isiZulu'),
-		('zun', NULL, 'Zuni', 'Shiwi');""")
+		('zun', NULL, 'Zuni', 'Shiwi'))
 
-	#row = cursor.fetchone()
+	cursor.executemany("insert into i18n_language (codigo, codigo2, descripcion, original) values (?, ?, ?, ?)", params)
 
-	#return row
-	connection.commit()
-	connection.close()
 	return
 
 
